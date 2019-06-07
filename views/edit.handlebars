@@ -1,0 +1,46 @@
+<form class="text-center border border-light p-5" name="myform" action="/api/incidents/edit" method="POST">
+    <p class="h4 mb-4">Edit Incident</p>            
+    <label>Category</label>
+    <select class="browser-default custom-select mb-4" name="category">
+        <option value="" >Choose option</option>
+        <option value="inquiry" selected>Inquiry/Help</option>
+        <option value="software">Software</option>
+        <option value="hardware">Hardware</option>
+        <option value="network">Network</option>
+        <option value="database">Database</option>
+    </select>
+    <label>Sub-Category</label>
+    <select class="browser-default custom-select mb-4" name="subcategory">
+        <option value="">Choose option</option>
+        <option value="anti-virus" selected>Anti-Virus</option>
+        <option value="email">Email</option>
+        <option value="self-application">Self-Application</option>
+    </select>
+    </select>
+    <label>Contact Type</label>
+    <select class="browser-default custom-select mb-4" name="contact_type">
+        <option value="">Choose option</option>
+        <option value="email" selected>Email</option>
+        <option value="phone">Phone</option>
+        <option value="self-service">Self-Service</option>
+        <option value="walk-in">Walk-in</option>
+    </select>
+    <label>Priority</label>
+    <select class="browser-default custom-select mb-4" name="priority">
+        <option value=""    >Choose option</option>
+        <option value="1" selected>1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="4">5</option>
+    </select>
+    <div class="form-group">
+        <textarea class="form-control rounded-0" name="short_description" id="shortDescription1" rows="3" placeholder="Description" required>{{incident.short_description}}</textarea>
+    </div>      
+    <div class="form-group">
+        <textarea class="form-control rounded-0" name="description" id="Description1" rows="3" placeholder="Description" required>{{incident.description}}</textarea>
+    </div>
+    <input type="hidden" name="sys_id" value="{{incident.sys_id}}">
+    <button class="btn btn-info btn-block" type="submit">Send</button>
+
+</form>

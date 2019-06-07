@@ -1,0 +1,31 @@
+<form class="text-center border border-light p-5" name="myform" action="/api/incidents/edit" method="POST">
+    <p class="h4 mb-4">Incident Details</p>            
+    <!-- Subject -->
+    <label>Category</label>
+    <select disabled class="browser-default custom-select mb-4" name="category">
+        <option value="{{incident.category}}">{{incident.category}}</option>
+    </select>
+    <label>Sub-Category</label>
+    <select disabled class="browser-default custom-select mb-4" name="subcategory">
+        <option value="{{incident.subcategory}}">{{incident.subcategory}}</option>
+    </select>
+    </select>
+    <label>Contact Type</label>
+    <select disabled class="browser-default custom-select mb-4" name="contact_type">
+        <option value="{{incident.category}}">{{incident.contact_type}}</option>
+    </select>
+    <label>Priority</label>
+    <select disabled class="browser-default custom-select mb-4" name="priority">
+        <option value="{{incident.category}}">{{incident.priority}}</option>
+    </select>
+    {{!-- <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true">  --}}
+    <div class="form-group">
+        <textarea disabled class="form-control rounded-0" name="short_description" id="shortDescription1" rows="3" placeholder="Description" required>{{incident.short_description}}</textarea>
+    </div>      
+    <!-- Message -->
+    <div class="form-group">
+        <textarea disabled class="form-control rounded-0" name="description" id="Description1" rows="3" placeholder="Description" required>{{incident.description}}</textarea>
+    </div>
+    <!-- Send button -->     
+</form>
+

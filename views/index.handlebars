@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="row col-md-12 custyle center">
+    <table class="table table-striped custab">
+    <thead>
+    <a href="/incidents" class="btn btn-primary btn-xs pull-right"><b>+</b>Add incident</a>
+        <tr>
+            <th>Incident Number</th>
+            <th>Short Description</th>
+            <th>Priority</th>
+            <th>Category</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+            {{#each incidents}}
+            <tr>
+                <td><a href="/info?sys_id={{this.sys_id}}">{{this.number}}</a></td>
+                <td>{{this.short_description}}</td>
+                <td>{{this.priority}}</td>
+                <td>{{this.category}}</td>
+                <td class="text-center"><a class='btn btn-info btn-xs' href="/edit?sys_id={{this.sys_id}}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="/api/incidents/delete?sys_id={{this.sys_id}}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+            </tr>
+            {{/each}}
+    </table>
+</div>
