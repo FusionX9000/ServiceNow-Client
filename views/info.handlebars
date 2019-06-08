@@ -1,31 +1,45 @@
-<form class="text-center border border-light p-5" name="myform" action="/api/incidents/edit" method="POST">
+<script src="https://underscorejs.org/underscore-min.js"></script>
+<script>
+    const toTitleCase = (phrase) => {
+    return phrase
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join('-');
+    };
+    $(document).ready( () => {
+        var cats = {'category':'{{incident.category}}','subcategory':'{{incident.subcategory}}','priority':'{{incident.priority}}',
+        'contact_type':'{{incident.contact_type}}'};
+        _(cats).each( (v,k) => {
+            $('select[name='+k+'] option[value='+v+']').text(toTitleCase(v));
+        });
+    });
+</script>
+<form class="text-center border border-light p-5" name="myform" action="/incidents/edit" method="POST">
+    <a class='btn btn-info btn-xs float-left' href="/edit?sys_id={{incident.sys_id}}"><i class="fa fa-edit" aria-hidden="true"></i>Edit</a> <a href="/create_incident/delete?sys_id={{incident.sys_id}}" class="btn btn-danger btn-xs float-right"><span class="fa fa-remove"></span>Del</a>
     <p class="h4 mb-4">Incident Details</p>            
     <!-- Subject -->
     <label>Category</label>
     <select disabled class="browser-default custom-select mb-4" name="category">
-        <option value="{{incident.category}}">{{incident.category}}</option>
+        <option value="{{incident.category}}" selected></option>
     </select>
     <label>Sub-Category</label>
     <select disabled class="browser-default custom-select mb-4" name="subcategory">
-        <option value="{{incident.subcategory}}">{{incident.subcategory}}</option>
+        <option value="{{incident.subcategory}}" selected></option>
     </select>
     </select>
     <label>Contact Type</label>
     <select disabled class="browser-default custom-select mb-4" name="contact_type">
-        <option value="{{incident.category}}">{{incident.contact_type}}</option>
+        <option value="{{incident.contact_type}}" selected></option>
     </select>
     <label>Priority</label>
     <select disabled class="browser-default custom-select mb-4" name="priority">
-        <option value="{{incident.category}}">{{incident.priority}}</option>
+        <option value="{{incident.priority}}" selected></option>
     </select>
-    {{!-- <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true">  --}}
     <div class="form-group">
-        <textarea disabled class="form-control rounded-0" name="short_description" id="shortDescription1" rows="3" placeholder="Description" required>{{incident.short_description}}</textarea>
+        <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true" value="{{incident.short_description}}" disabled>       
     </div>      
-    <!-- Message -->
     <div class="form-group">
         <textarea disabled class="form-control rounded-0" name="description" id="Description1" rows="3" placeholder="Description" required>{{incident.description}}</textarea>
-    </div>
-    <!-- Send button -->     
+    </div>     
 </form>
 

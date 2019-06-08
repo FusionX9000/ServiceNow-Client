@@ -1,4 +1,19 @@
-<form class="text-center border border-light p-5" name="myform" action="/api/incidents/edit" method="POST">
+<script src="https://underscorejs.org/underscore-min.js"></script>
+<script>
+    $(document).ready( () => {
+        var cats = {'category':'{{incident.category}}','subcategory':'{{incident.subcategory}}','priority':'{{incident.priority}}',
+        'contact_type':'{{incident.contact_type}}'};
+        _(cats).each( (cat,i) => {
+            if(cat){
+            $('select[name='+i+'] option[value='+cat+']').prop('selected', true);
+            }
+            else {
+            $('select[name='+i+'] option[value=\'\']').prop('selected', true);               
+            }
+        });
+    })
+</script>
+<form class="text-center border border-light p-5" name="myform" action="/incidents/edit" method="POST">
     <p class="h4 mb-4">Edit Incident</p>            
     <label>Category</label>
     <select class="browser-default custom-select mb-4" name="category">
@@ -23,7 +38,7 @@
         <option value="email" selected>Email</option>
         <option value="phone">Phone</option>
         <option value="self-service">Self-Service</option>
-        <option value="walk-in">Walk-in</option>
+        <option value="walk-in">Walk-In</option>
     </select>
     <label>Priority</label>
     <select class="browser-default custom-select mb-4" name="priority">
@@ -35,12 +50,11 @@
         <option value="4">5</option>
     </select>
     <div class="form-group">
-        <textarea class="form-control rounded-0" name="short_description" id="shortDescription1" rows="3" placeholder="Description" required>{{incident.short_description}}</textarea>
+        <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true" value="{{incident.short_description}}">       
     </div>      
     <div class="form-group">
         <textarea class="form-control rounded-0" name="description" id="Description1" rows="3" placeholder="Description" required>{{incident.description}}</textarea>
     </div>
     <input type="hidden" name="sys_id" value="{{incident.sys_id}}">
     <button class="btn btn-info btn-block" type="submit">Send</button>
-
 </form>

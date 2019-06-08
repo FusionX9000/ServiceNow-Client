@@ -1,6 +1,5 @@
-<form class="text-center border border-light p-5" name="myform" action="/api/incidents" method="POST">
+<form class="text-center border border-light p-5" name="myform" action="/incidents" method="POST">
     <p class="h4 mb-4">Create Incident</p>            
-    <!-- Subject -->
     <label>Category</label>
     <select class="browser-default custom-select mb-4" name="category">
         <option value="" disabled>Choose option</option>
@@ -36,11 +35,9 @@
         <option value="4">5</option>
     </select>
     <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true">       
-    <!-- Message -->
     <div class="form-group">
         <textarea class="form-control rounded-0" name="description" id="Description1" rows="3" placeholder="Description" required="true"></textarea>
     </div>
-    <!-- Send button -->
     <button class="btn btn-info btn-block" type="submit">Send</button>
 
 </form>

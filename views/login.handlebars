@@ -1,6 +1,6 @@
 <style type="text/css">
 	.login-form {
-		width: 340px;
+		width: 400px;
     	margin: 50px auto;
 	}
     .login-form form {
@@ -22,17 +22,21 @@
     }
 </style>
 <div class="login-form">
-    <form action="/index" onsubmit="return validate()" method="get">
+    <form class="needs-validation" action="/login" onsubmit="return validate()" method="post">
         <h2 class="text-center">Log in</h2>
         <div class="form-group">
-            <input type="text" class="form-control" id="username" placeholder="username" required="required">
+            <input type="url" class="form-control" name="url" placeholder="https://devXXXXX.service-now.com" pattern="https?://dev[0-9]+.service-now.com" oninvalid="this.setCustomValidity('Enter valid instance URL. Include http://')" oninput="this.setCustomValidity('')" required="required">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" id="password" placeholder="password" required="required">
+            <input type="text" class="form-control" name="username" placeholder="username" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="password">
         </div>
         <div class="form-group">
             <button type="submit" class="btn btn-primary btn-block">Log in</button>
         </div>    
+        {{#if invalid}}<p class="text-danger text-center">Username/Password incorrect</p>{{/if}}
     </form>
 </div>
                              		                            

@@ -1,0 +1,25 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+var url="https://dev80382.service-now.com/api/now/table/incident";
+var username="admin";
+var password="Sny7WuUOT5@";
+
+axios.get(url, {
+    headers: {
+        'Accept':'application/json',
+        'Content-Type':'application/json',
+    },
+    auth: {
+        username:username,
+        password:password
+    },
+    params: {
+        "sysparm_limit":1
+    }
+}).then(function(response) {
+    console.log(response);
+})
+.catch(function(error) {
+    console.log(error);
+})
+</script>
