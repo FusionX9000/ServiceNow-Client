@@ -1,41 +1,72 @@
+<script src="https://underscorejs.org/underscore-min.js"></script>
+<script>
+    $(document).ready(()=> {$('#category').change(function () {
+        var dict = {
+        'inquiry': [{'name':'Anti-Virus','value':'antivirus'},
+            {'name':'Email','value':'email'},
+            {'name':'Internal Application','value':'internal application'}],
+        'software': [{'name':'Email','value':'email'},
+            {'name':'Operating System','value':'os'}],
+        'hardware': [{'name':'CPU','value':'cpu'},
+            {'name':'Disk','value':'disk'},
+            {'name':'Keyboard','value':'keyboard'},
+            {'name':'Memory','value':'memory'},
+            {'name':'Monitor','value':'monitor'},
+            {'name':'Mouse','value':'mouse'}],
+        'network': [{'name':'DHCP','value':'dhcp'},
+            {'name':'DNS','value':'dns'},
+            {'name':'IP Address','value':'ip address'},
+            {'name':'VPN','value':'vpn'},
+            {'name':'Wireless','value':'wireless'}],
+        'database': [{'name':'DB2','value':'db2'},
+            {'name':'MS SQL Server','value':'sql server'},
+            {'name':'Oracle','value':'oracle'}]
+          }
+
+        var cat = $(this).val();
+        var menu = $("#subcategory");
+        menu.empty();
+        $.each(dict[cat], function() {
+            $("<option/>")
+            .prop("value",this.value)
+            .html(this.name)
+            .appendTo(menu);
+        });
+    })});
+</script>
 <form class="text-center border border-light p-5" name="myform" action="/incidents" method="POST">
     <p class="h4 mb-4">Create Incident</p>            
     <label>Category</label>
-    <select class="browser-default custom-select mb-4" name="category">
-        <option value="" disabled>Choose option</option>
-        <option value="inquiry" selected>Inquiry/Help</option>
+    <select id="category" class="browser-default custom-select mb-4" name="category">
+        <option value="" selected>Choose option</option>
+        <option value="inquiry">Inquiry/Help</option>
         <option value="software">Software</option>
         <option value="hardware">Hardware</option>
         <option value="network">Network</option>
         <option value="database">Database</option>
     </select>
     <label>Sub-Category</label>
-    <select class="browser-default custom-select mb-4" name="subcategory">
-        <option value="" disabled>Choose option</option>
-        <option value="anti-virus" selected>Anti-Virus</option>
-        <option value="email">Email</option>
-        <option value="self-application">Self-Application</option>
-    </select>
+    <select id = "subcategory" class="browser-default custom-select mb-4" name="subcategory">
     </select>
     <label>Contact Type</label>
     <select class="browser-default custom-select mb-4" name="contact_type">
-        <option value="" disabled>Choose option</option>
-        <option value="email" selected>Email</option>
+        <option value="" selected>Choose option</option>
+        <option value="email">Email</option>
         <option value="phone">Phone</option>
         <option value="self-service">Self-Service</option>
         <option value="walk-in">Walk-in</option>
     </select>
     <label>Priority</label>
     <select class="browser-default custom-select mb-4" name="priority">
-        <option value="" disabled>Choose option</option>
-        <option value="1" selected>1</option>
+        <option value="" selected>Choose option</option>
+        <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="4">5</option>
     </select>
-    <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true">       
     <div class="form-group">
+        <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true" value="">       
         <textarea class="form-control rounded-0" name="description" id="Description1" rows="3" placeholder="Description" required="true"></textarea>
     </div>
     <button class="btn btn-info btn-block" type="submit">Send</button>
