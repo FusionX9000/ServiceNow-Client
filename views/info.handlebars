@@ -37,7 +37,7 @@
         });
         $('select[name=category] option[value={{incident.category}}]').prop('selected', true);
         $('#category').change();
-        var sel_elems = {'subcategory':'{{incident.subcategory}}','priority':'{{incident.priority}}',
+        var sel_elems = {'subcategory':'{{incident.subcategory}}','impact':'{{incident.impact}}','urgency':'{{incident.urgency}}','priority':'{{incident.priority}}',
         'contact_type':'{{incident.contact_type}}'};
         _(sel_elems).each((option_value,sel_elem_name) => {
             if(option_value){
@@ -76,9 +76,21 @@
         <option value="self-service">Self-Service</option>
         <option value="walk-in">Walk-In</option>
     </select>
+    <label>Impact</label>
+    <select id="impact" class="browser-default custom-select mb-4" name="impact" disabled>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+    </select>
+    <label>Urgency</label>
+    <select id="urgency" class="browser-default custom-select mb-4" name="urgency" disabled>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3" selected>3</option>
+    </select>
     <label>Priority</label>
-    <select class="browser-default custom-select mb-4" name="priority" disabled>
-        <option value="">Choose option</option>
+    <select id="priority" class="browser-default custom-select mb-4" name="priority" disabled>
+        <option value="0">Choose option</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>

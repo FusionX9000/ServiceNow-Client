@@ -37,7 +37,7 @@
         });
         $('select[name=category] option[value={{incident.category}}]').prop('selected', true);
         $('#category').change();
-        var sel_elems = {'subcategory':'{{incident.subcategory}}','priority':'{{incident.priority}}',
+        var sel_elems = {'subcategory':'{{incident.subcategory}}','impact':'{{incident.impact}}','urgency':'{{incident.urgency}}','priority':'{{incident.priority}}',
         'contact_type':'{{incident.contact_type}}'};
         _(sel_elems).each((option_value,sel_elem_name) => {
             if(option_value){
@@ -49,6 +49,12 @@
             }
 
         });
+        $('#impact,#urgency').change(function () {
+            var imp_val=parseInt($('#impact').val());
+            var urg_val=parseInt($('#urgency').val());
+            console.log(imp_val+urg_val-1)
+            $('#priority option[value='+(imp_val+urg_val-1)+']').prop('selected',true)
+        })
 })  
 </script>
 <form class="text-center border border-light p-5" name="myform" action="/incidents/edit" method="POST">
@@ -74,14 +80,27 @@
         <option value="self-service">Self-Service</option>
         <option value="walk-in">Walk-In</option>
     </select>
+    <label>Impact</label>
+    <select id="impact" class="browser-default custom-select mb-4" name="impact">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    <label>Urgency</label>
+    <select id="urgency"class="browser-default custom-select mb-4" name="urgency">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
     <label>Priority</label>
-    <select class="browser-default custom-select mb-4" name="priority">
+    <select id="priority" class="browser-default custom-select mb-4" name="priority" disabled>
         <option value="">Choose option</option>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
         <option value="5">5</option>
+
     </select>
     <div class="form-group">
         <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true" value="{{incident.short_description}}">       
