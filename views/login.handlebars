@@ -1,42 +1,48 @@
 <style type="text/css">
-	.login-form {
-		width: 400px;
-    	margin: 50px auto;
-	}
-    .login-form form {
-    	margin-bottom: 15px;
-        background: #f7f7f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    .slds-box {
+        width: 500px;
+        margin: 50px auto;
         padding: 30px;
     }
-    .login-form h2 {
-        margin: 0 0 15px;
-    }
-    .form-control, .btn {
-        min-height: 38px;
-        border-radius: 2px;
-    }
-    .btn {        
-        font-size: 15px;
-        font-weight: bold;
-    }
 </style>
-<div class="login-form">
+<script>
+    $(document).ready( () => {
+        $(".slds-context-bar__item.slds-is-active").removeClass('slds-is-active')
+    })  
+</script>
+<div class="slds-box slds-theme_shade">
     <form class="needs-validation" action="/login" onsubmit="return validate()" method="post">
-        <h2 class="text-center">Log in</h2>
-        <div class="form-group">
-            <input type="url" class="form-control" name="url" placeholder="https://devXXXXX.service-now.com" pattern="https?://dev[0-9]+.service-now.com" oninvalid="this.setCustomValidity('Enter valid instance URL. Include http://')" oninput="this.setCustomValidity('')" required="required">
+    <div class="slds-text-align_center slds-text-heading_large" style="padding-bottom:10px;">Login</div>
+        <fieldset class="slds-form--compound">
+            <div class="form-element__group">
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-1">
+                        <input id="input-03" class="slds-input" type="text" name="url"
+                            placeholder="https://devXXXXX.service-now.com" pattern="https?://dev[0-9]+.service-now.com"
+                            oninvalid="this.setCustomValidity('Enter valid instance URL. Include http://')"
+                            oninput="this.setCustomValidity('')" required="required">
+                    </div>
+                </div>
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-1">
+                        <input id="input-04" class="slds-input" type="text" name="username" placeholder="username"
+                            required="required" />
+                    </div>
+                </div>
+                <div class="slds-form-element__row">
+                    <div class="slds-form-element slds-size--1-of-1">
+                        <input id="input-06" class="slds-input" type="password" class="form-control"
+                            name="password" placeholder="password" />
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div id="login" class="form-group">
+            <button type="submit" class="slds-button slds-button_neutral">Log in</button>
         </div>
-        <div class="form-group">
-            <input type="text" class="form-control" name="username" placeholder="username" required="required">
-        </div>
-        <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="password">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block">Log in</button>
-        </div>    
-        {{#if invalid}}<p class="text-danger text-center">Username/Password incorrect</p>{{/if}}
+        {{#if invalid}}
+        <div class="slds-text-align_center slds-text-color_error">Username/Password incorrect!</div>
+        {{/if}}
     </form>
+
 </div>
-                             		                            

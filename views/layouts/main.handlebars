@@ -1,35 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/assets/styles/salesforce-lightning-design-system.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
+
+<style>
+    .container {
+        margin: 0px 50px 50px 50px;
+        padding: 30px;
+    }
+</style>
+
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/index">Website</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="/index">View All Incidents<span class="sr-only">(current)</span></a>
-        </li>
-        {{#unless login}}
-        <li class="nav-item">
-          <a class="nav-link" href="/logout">Logout</a>
-        </li>
-        {{/unless}}
-      </ul>
+    <div class="slds-context-bar">
+        <div class="slds-context-bar__primary">
+            <div class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-no-hover">
+                <span class="slds-context-bar__label-action slds-context-bar__app-name">
+                    <span class="slds-truncate" title="Web Application">Web Application</span>
+                </span>
+            </div>
+        </div>
+        <nav class="slds-context-bar__secondary" role="navigation">
+            <ul class="slds-grid">
+                <li class="slds-context-bar__item slds-is-active">
+                    <a href="/index" class="slds-context-bar__label-action" title="Home">
+                        <span class="slds-truncate" title="View All Incidents">View All Incidents</span>
+                    </a>
+                </li>
+                <li
+                    class="slds-context-bar__item slds-context-bar__dropdown-trigger slds-dropdown-trigger slds-dropdown-trigger_click">
+                    <a href="javascript:void(0);" class="slds-context-bar__label-action" title="Menu Item">
+                        <span class="slds-truncate" title="Actions">Actions</span>
+                    </a>
+                    <div class="slds-context-bar__icon-action slds-p-left_none">
+                        <button id="test" class="slds-button slds-button_icon slds-button_icon slds-context-bar__button"
+                            aria-haspopup="true" title="Open menu item submenu">
+                            <svg class="slds-button__icon" aria-hidden="true">
+                                <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#chevrondown"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="slds-dropdown slds-dropdown_right">
+                        <ul class="slds-dropdown__list" role="menu">
+                            <li class="slds-dropdown__item" role="presentation">
+                                <a href="/create_incident" role="menuitem" tabindex="-1">
+                                    <span class="slds-truncate" title="Add New Incident">
+                                        <svg class="slds-icon slds-icon_x-small slds-icon-text-default slds-m-right_x-small"
+                                            aria-hidden="true">
+                                            <use xlink:href="/assets/icons/utility-sprite/svg/symbols.svg#add"></use>
+                                        </svg>Add New Incident</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="slds-context-bar__item">
+                    <a href="/logout" class="slds-context-bar__label-action" title="Menu Item">
+                        <span class="slds-truncate" title="Logout">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
-  </nav>
-  <div class="container">
-      {{{body}}}
+    <div class='container'>
+        {{{body}}}
     </div>
+    <script>
+        $("button").click(function () {
+            var element = $(this).parent().parent()
+            element.toggleClass('slds-is-open');
+        })
+    </script>
 </body>
+
 </html>

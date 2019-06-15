@@ -19,11 +19,11 @@ function getposts(id,callback) {
             password:id['password']
         }
     }).then(function(response) {
-        console.log(response)
+        // console.log(response)
         callback(response);
     })
     .catch(function(error) {
-        console.log(error);
+        // console.log(error);
         callback(error.response);
     })
     
@@ -60,6 +60,7 @@ function getpost(id,sys_id,callback) {
 
 //create incident
 function createposts(id,info, callback) {
+    console.log(info)
     axios.post(id['url'],info, {
         headers: {
             'Accept':'application/json',
@@ -70,28 +71,30 @@ function createposts(id,info, callback) {
             password:id['password']
         }
     }).then(function(response) {
-        console.log(response)
+        // console.log(response)
         callback(response['data']['result']);
     })
     .catch(function(error) {
-        console.log(error);
+        // console.log(error);
         return error.response;
     })
 }
 
 router.post('/', (req,res) => { 
-    if(_.isEmpty(id)) {res.redirect('/login'); return;}
-    else {createposts(id,req.body, (data) => {
+    // if(_.isEmpty(id)) {
+    //     res.redirect('/login'); 
+    //     return;
+    // }
+    // else {
+        createposts(id,req.body, (data) => {
         res.redirect("/index");
-    })}
+    })
 })
 
 //modify incident
-function modifyposts(id,sys_id,info, callback) {
-    // var sys_id=info['sys_id'];
-    // delete info['sys_id'];
-    var new_url=id['url']+'/'+sys_id;
-    // console.log(new_url,sys_id);
+function modifyposts(id,info, callback) {
+    // console.log(info)
+    var new_url=id['url']+'/'+info.sys_id;
     axios.put(new_url,info, {
         headers: {
             'Accept':'application/json',
@@ -112,8 +115,11 @@ function modifyposts(id,sys_id,info, callback) {
 }
 
 router.post('/edit', (req,res) => { 
-    if(_.isEmpty(id)) {res.redirect('/login'); return;}
-    else{modifyposts(id,req.body.sys_id,req.body, (data) => {
+    if(_.isEmpty(id)) {
+        res.redirect('/login'); 
+        return;
+    }
+    else{modifyposts(id,req.body, (data) => {
         res.redirect("/index");
     })}
 })

@@ -1,60 +1,163 @@
 <script src="https://underscorejs.org/underscore-min.js"></script>
 <script>
-    $(document).ready( () => {
-        var cats = {'category':'{{incident.category}}','subcategory':'{{incident.subcategory}}','priority':'{{incident.priority}}',
-        'contact_type':'{{incident.contact_type}}'};
-        _(cats).each( (cat,i) => {
-            if(cat){
-            $('select[name='+i+'] option[value='+cat+']').prop('selected', true);
+    $(document).ready(() => {
+        var dict = {
+            'inquiry': [{ 'name': 'Anti-Virus', 'value': 'antivirus' },
+            { 'name': 'Email', 'value': 'email' },
+            { 'name': 'Internal Application', 'value': 'internal application' }],
+            'software': [{ 'name': 'Email', 'value': 'email' },
+            { 'name': 'Operating System', 'value': 'os' }],
+            'hardware': [{ 'name': 'CPU', 'value': 'cpu' },
+            { 'name': 'Disk', 'value': 'disk' },
+            { 'name': 'Keyboard', 'value': 'keyboard' },
+            { 'name': 'Memory', 'value': 'memory' },
+            { 'name': 'Monitor', 'value': 'monitor' },
+            { 'name': 'Mouse', 'value': 'mouse' }],
+            'network': [{ 'name': 'DHCP', 'value': 'dhcp' },
+            { 'name': 'DNS', 'value': 'dns' },
+            { 'name': 'IP Address', 'value': 'ip address' },
+            { 'name': 'VPN', 'value': 'vpn' },
+            { 'name': 'Wireless', 'value': 'wireless' }],
+            'database': [{ 'name': 'DB2', 'value': 'db2' },
+            { 'name': 'MS SQL Server', 'value': 'sql server' },
+            { 'name': 'Oracle', 'value': 'oracle' }]
+        }
+
+        $('#category').change(function () {
+            var cat = $(this).val();
+            var menu = $("#subcategory");
+            menu.empty();
+            $.each(dict[cat], function () {
+                $("<option/>")
+                    .prop("value", this.value)
+                    .html(this.name)
+                    .appendTo(menu);
+            });
+        });
+        $('select[name=category] option[value={{incident.category}}]').prop('selected', true);
+        $('#category').change();
+        var sel_elems = {
+            'subcategory': '{{incident.subcategory}}', 'impact': '{{incident.impact}}', 'urgency': '{{incident.urgency}}', 'priority': '{{incident.priority}}',
+            'contact_type': '{{incident.contact_type}}'
+        };
+        _(sel_elems).each((option_value, sel_elem_name) => {
+            if (option_value) {
+                $('select[name=' + sel_elem_name + '] option[value="' + option_value + '"]').prop('selected', true);
+
             }
             else {
-            $('select[name='+i+'] option[value=\'\']').prop('selected', true);               
+                $('select[name=' + sel_elem_name + '] option[value=\'\']').prop('selected', true);
             }
+
         });
-    })
+        $('#impact,#urgency').change(function () {
+            var imp_val = parseInt($('#impact').val());
+            var urg_val = parseInt($('#urgency').val());
+            console.log(imp_val + urg_val - 1)
+            $('#priority option[value=' + (imp_val + urg_val - 1) + ']').prop('selected', true)
+        })
+        $(".slds-context-bar__item.slds-is-active").removeClass('slds-is-active')
+    })  
 </script>
-<form class="text-center border border-light p-5" name="myform" action="/incidents/edit" method="POST">
-    <p class="h4 mb-4">Edit Incident</p>            
-    <label>Category</label>
-    <select class="browser-default custom-select mb-4" name="category">
-        <option value="" >Choose option</option>
-        <option value="inquiry" selected>Inquiry/Help</option>
-        <option value="software">Software</option>
-        <option value="hardware">Hardware</option>
-        <option value="network">Network</option>
-        <option value="database">Database</option>
-    </select>
-    <label>Sub-Category</label>
-    <select class="browser-default custom-select mb-4" name="subcategory">
-        <option value="">Choose option</option>
-        <option value="anti-virus" selected>Anti-Virus</option>
-        <option value="email">Email</option>
-        <option value="self-application">Self-Application</option>
-    </select>
-    </select>
-    <label>Contact Type</label>
-    <select class="browser-default custom-select mb-4" name="contact_type">
-        <option value="">Choose option</option>
-        <option value="email" selected>Email</option>
-        <option value="phone">Phone</option>
-        <option value="self-service">Self-Service</option>
-        <option value="walk-in">Walk-In</option>
-    </select>
-    <label>Priority</label>
-    <select class="browser-default custom-select mb-4" name="priority">
-        <option value=""    >Choose option</option>
-        <option value="1" selected>1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="4">5</option>
-    </select>
-    <div class="form-group">
-        <input type="text" id="defaultContactShortDescription" name="short_description" class="form-control mb-4" placeholder="Short Description" required="true" value="{{incident.short_description}}">       
-    </div>      
-    <div class="form-group">
-        <textarea class="form-control rounded-0" name="description" id="Description1" rows="3" placeholder="Description" required>{{incident.description}}</textarea>
+<div class="slds-box slds-theme_default">
+<form  name="myform" action="/incidents/edit" method="POST">
+    <div class="slds-text-heading_large slds-text-align_center">Edit Incident</div>
+        <div class="slds-form">
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="category">Category</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select  class="slds-select" id="category" name="category">
+                        <option value="" >Choose option</option>
+                        <option value="inquiry">Inquiry/Help</option>
+                        <option value="software">Software</option>
+                        <option value="hardware">Hardware</option>
+                        <option value="network">Network</option>
+                        <option value="database">Database</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="subcategory">Sub-Category</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select  class="slds-select" name="subcategory" id="subcategory">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="contact_type">Contact Type</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select  class="slds-select" name="contact_type" id="contact_type">
+                        <option value="">Choose option</option>
+                        <option value="email">Email</option>
+                        <option value="phone">Phone</option>
+                        <option value="self-service">Self-Service</option>
+                        <option value="walk-in">Walk-In</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="impact">Impact</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select  class="slds-select" name="impact" id="impact">
+                        <option value="">Choose option</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="urgency">Urgency</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select  class="slds-select" name="urgency" id="urgency">
+                        <option value="">Choose option</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="priority">Priority</label>
+            <div class="slds-form-element__control">
+                <div class="slds-select_container">
+                    <select  class="slds-select" name="priority" id="priority" disabled>
+                        <option value="">Choose option</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="form-element-01">Short Description</label>
+            <div class="slds-form-element__control">
+                <input  type="text" id="defaultContactShortDescription" name="short_description"
+                    placeholder="Short Description" class="slds-input" value="{{incident.short_description}}" required />
+            </div>
+        </div>
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="textarea-id-01">Description</label>
+            <div class="slds-form-element__control">
+                <textarea  id="textarea-id-01" class="slds-textarea" name="description" id="Description1"
+                    rows="3" placeholder="Description" required>{{incident.short_description}}</textarea>
+            </div>
+        </div>
     </div>
     <input type="hidden" name="sys_id" value="{{incident.sys_id}}">
-    <button class="btn btn-info btn-block" type="submit">Send</button>
+    <button class="slds-button slds-button_brand" type="submit">Save</button>
 </form>
+</div>

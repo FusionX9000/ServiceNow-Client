@@ -1,24 +1,47 @@
-<div class="container">
-    <div class="row col-md-12 custyle center">
-    <table class="table table-striped custab">
-    <thead>
-    <a href="/create_incident" class="btn btn-primary btn-xs pull-right"><b>+</b>Add incident</a>
-        <tr>
-            <th>Incident Number</th>
-            <th>Short Description</th>
-            <th>Priority</th>
-            <th>Category</th>
-            <th class="text-center">Action</th>
-        </tr>
-    </thead>
-            {{#each incidents}}
-            <tr>
-                <td><a href="/info?sys_id={{this.sys_id}}">{{this.number}}</a></td>
-                <td>{{this.short_description}}</td>
-                <td>{{this.priority}}</td>
-                <td>{{this.category}}</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="/edit?sys_id={{this.sys_id}}"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="/incidents/delete?sys_id={{this.sys_id}}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+<div class="slds-box slds-theme_default">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+            <!-- <a href="/create_incident" class="btn btn-primary btn-xs pull-right"><b>+</b>Add incident</a> -->
+            <tr class="slds-line-height_reset">
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Incident Number">Incident Number</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Short Description">Short Description</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Priority">Priority</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Category">Category</div>
+                </th>
+                <th class="" scope="col">
+                    <div class="slds-truncate" title="Action">Action</div>
+                </th>
+                <!-- <th class="text-center">Action</th> -->
             </tr>
-            {{/each}}
+        </thead>
+        {{#each incidents}}
+        <tr class="slds-hint-parent">
+            <th data-label="Incident Number" scope="row">
+                <div class="slds-truncate" title="{{this.number}}">
+                    <a href="/info?sys_id={{this.sys_id}}" tabindex="-1">{{this.number}}</a>
+                </div>
+            </th>
+            <td data-label="Short Description">
+                <div class="slds-truncate" title="{{this.short_description}}">{{this.short_description}}</div>
+            </td>
+            <td data-label="Priority">
+                <div class="slds-truncate" title="{{this.priority}}">{{this.priority}}</div>
+            </td>
+            <td data-label="Category">
+                <div class="slds-truncate" title="{{this.category}}">{{this.category}}</div>
+            </td>
+            <td class="text-center">
+                <a class='slds-button slds-button_neutral' href="/edit?sys_id={{this.sys_id}}">Edit</a> 
+                <a href="/incidents/delete?sys_id={{this.sys_id}}" class="slds-button slds-button_destructive">Delete</a>
+            </td>
+        </tr>
+        {{/each}}
     </table>
 </div>
