@@ -1,4 +1,4 @@
-# snowclient-sak060719
+# ServiceNow-Client
 ## About
 Simple tool to manage incidents
 
